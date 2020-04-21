@@ -1,11 +1,22 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import { render, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import App from './App';
-import { fetchShows as mockFetchShows } from './api/fetchShow';
+import { fetchShow as mockFetchShow } from './api/fetchShow';
 
-jest.mock('./api/fetchShows');
-console.log("jest.mock run, mockFetchShows:", mockFetchShows);
+import * as rtl from '@testing-library/react';
 
-test("", async () => {
-    
-})
+describe('App', () => {
+  let wrapper;
+
+  afterEach(rtl.cleanup);
+  beforeEach(() => {
+    wrapper = rtl.render(<App />);
+  });
+
+  it('displays the correct name starting with the API data', async () => {
+    const text = await wrapper.findByText('Select a season');
+    expect(text).toBeInTheDocument();
+    expect(text).toBeVisible();
+  });
+});

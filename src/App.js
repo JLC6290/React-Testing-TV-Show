@@ -29,11 +29,10 @@ export default function App() {
   // }, []);
 
   useEffect(() => {
-    fetchShow()
-      .then(response => {
+    fetchShow().then(response => {
         setShow(response.data);
         setSeasons(formatSeasons(response.data._embedded.episodes));
-      })
+      });
   }, []);
 
 
@@ -51,6 +50,7 @@ export default function App() {
       <h1>{show.name}</h1>
       {parse(show.summary)}
       <Dropdown
+        data-testid="dropdown-test"
         options={Object.keys(seasons)}
         onChange={handleSelect}
         value={selectedSeason || "Select a season"}
